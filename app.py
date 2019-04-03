@@ -34,7 +34,7 @@ def index():
     """Return the homepage."""
     return render_template("index.html")
 
-@app.route("masterdata")
+@app.route("/masterdata")
 def serve_master_data():
     """serve the master data to a page in JSON format"""
     return jsonify(master_data)
@@ -49,7 +49,7 @@ def serve_average_review_data():
     """serve average review scores by year data to a page in JSON format"""
     return jsonify(average_score_by_year)
 
-@app.route("genrecount")
+@app.route("/genrecount")
 def serve_genre_count():
     """serve the total review count by genre to JSON"""
     return jsonify(genre_count)
