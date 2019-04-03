@@ -20,13 +20,13 @@ review_data = pd.read_sql("SELECT * FROM reviews", conn)
 genres_data = pd.read_sql("SELECT * FROM genres", conn)
 artists_data = pd.read_sql("SELECT * FROM artists", conn)
 
-master_data = review_data.merge(genres_data, how = 'left')
+master_data = pd.DataFrame(review_data.merge(genres_data, how = 'left'))
 
-review_count_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['reviewid'].count())
+review_count_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['reviewid'].count()).to_json()
 
-genre_count = pd.DataFrame(master_data.groupby(by = 'genre')['reviewid'].count())
+genre_count = pd.DataFrame(master_data.groupby(by = 'genre')['reviewid'].count()).to_json()
 
-average_score_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['score'].mean())
+average_score_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['score'].mean()).to_json()
 
 
 @app.route("/")
