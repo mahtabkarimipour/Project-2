@@ -10,8 +10,17 @@ from sqlalchemy import create_engine
 
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
+import json
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./static')
+
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
+@app.after_request
+def add_header(response):
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
 
 engine = create_engine('sqlite:///pitchfork.sqlite')
 conn = engine.connect()
@@ -42,17 +51,26 @@ def serve_master_data():
 @app.route("/reviewsbyyear")
 def serve_review_count():
     """serve the review data to a page in JSON format"""
-    return jsonify(review_count_by_year)
+    ans = {}
+    ans['counts'] = list(json.loads(review_count_by_year)['reviewid'].values())
+    ans['years'] = list(json.loads(review_count_by_year)['reviewid'].keys())
+    return jsonify(ans)
 
 @app.route("/scorebyyear")
 def serve_average_review_data():
     """serve average review scores by year data to a page in JSON format"""
-    return jsonify(average_score_by_year)
+    ans = {}
+    ans['scores'] = list(json.loads(average_score_by_year)['score'].values())
+    ans['years'] = list(json.loads(average_score_by_year)['score'].keys())
+    return jsonify(ans)
 
 @app.route("/genrecount")
 def serve_genre_count():
     """serve the total review count by genre to JSON"""
-    return jsonify(genre_count)
+    ans = {}
+    ans['scores'] = list(json.loads(genre_count)['reviewid'].values())
+    ans['genres'] = list(json.loads(genre_count)['reviewid'].keys())
+    return jsonify(ans)
 
 if __name__ == "__main__":
     app.run()
