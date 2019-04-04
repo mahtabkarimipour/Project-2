@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <title>Pitchfork Review Analysis</title>
+  </head>
+
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Pitchfork Review Analysis</h1>
+        <p>An analytical look at Pitchfork reviews over time</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">View 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">View 2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">View 3</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Genre</h3>
+            </div>
+            <div class="panel-body">
+              <select
+                id="selDataset"
+                onchange="optionChanged(this.value)"
+              ></select>
+              <ul id="sampleMetadata"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <canvas id="View1"> </canvas>
+          <img
+            src="http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder.png"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="reviewsbyyear"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="scorebyyear"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="genrecount"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='app.js') }}"
+    ></script>
+  </body>
+</html>
