@@ -11,10 +11,12 @@ from sqlalchemy import create_engine
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 import json
+from collections import defaultdict
 
 app = Flask(__name__, static_folder='./static')
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 
 @app.after_request
 def add_header(response):
@@ -33,12 +35,23 @@ master_data = pd.DataFrame(review_data.merge(genres_data, how = 'left'))
 
 review_count_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['reviewid'].count()).to_json()
 
-review_by_year_and_genre = pd.DataFrame(master_data.groupby(by = ['genre','pub_year'])['reviewid'].count()).to_json()
+review_by_year_and_genre = pd.DataFrame(master_data.groupby(by = ['genre','pub_year'])['reviewid'].count())
 
 genre_count = pd.DataFrame(master_data.groupby(by = 'genre')['reviewid'].count()).to_json()
 
 average_score_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['score'].mean()).to_json()
 
+
+#create new variable, called results, to
+reviews_by_genre = defaultdict(lambda: defaultdict(dict))
+for index, value in review_by_year_and_genre.itertuples():
+    for i, key in enumerate(index):
+        if i == 0:
+            nested = reviews_by_genre[key]
+        elif i == len(index) - 1:
+            nested[key] = value
+        else:
+            nested = nested[key]
 
 @app.route("/")
 def index():
@@ -56,7 +69,7 @@ def test_time():
 
 @app.route("/reviewsbyyearandgenre")
 def testing():
-    return json.loads(review_by_year_and_genre)
+    return jsonify(reviews_by_genre)
 
 @app.route("/scorebyyear")
 def serve_average_review_data():
