@@ -21,12 +21,20 @@ var config = {displaylogo:false,
   //   ];
 
 
-d3.json("/reviewsbyyearandgenre").then(d => {
-  console.log(d)
-  console.log(d.electronic)
-  console.log(Object.keys(d.electronic))
-  console.log(Object.values(d.electronic))
-});
+// d3.json("/reviewsbyyearandgenre").then(d => {
+//   console.log(d)
+//   console.log(d.electronic)
+//   console.log(Object.keys(d.electronic))
+//   console.log(Object.values(d.electronic))
+// });
+
+// d3.json("/reviewscorebyyearandgenre").then(d => {
+//   console.log(d)
+//   console.log(d.electronic)
+//   console.log(Object.keys(d.electronic))
+//   console.log(Object.values(d.electronic))
+// });
+
 
 //   d3.json("/reviewsbyyear").then(infos => {
 //     var data = [
