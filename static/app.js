@@ -191,7 +191,8 @@ d3.json("/reviewsbyyearandgenre").then(infos => {
       color: '#000000'
     },
     xaxis: {
-      title : "Year"
+      title : "Year",
+      rangeslider: {}
     },
     yaxis: {
       title : "Total Reviews",
@@ -287,7 +288,8 @@ d3.json("/reviewscorebyyearandgenre").then(infos => {
       color: '#000000'
     },
     xaxis: {
-      title : "Year"
+      title : "Year",
+      rangeslider: {}
     },
     yaxis: {
       title : "Average Score",
