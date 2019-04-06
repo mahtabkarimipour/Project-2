@@ -56,7 +56,7 @@ def test_time():
 
 @app.route("/reviewsbyyearandgenre")
 def testing():
-    return json.loads(review_by_year_and_genre)
+    return review_by_year_and_genre
 
 @app.route("/scorebyyear")
 def serve_average_review_data():
