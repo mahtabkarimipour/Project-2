@@ -37,12 +37,14 @@ review_count_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['review
 
 review_by_year_and_genre = pd.DataFrame(master_data.groupby(by = ['genre','pub_year'])['reviewid'].count())
 
+review_score_by_year_and_genre = pd.DataFrame(master_data.groupby(by = ['genre','pub_year'])['score'].mean())
+
 genre_count = pd.DataFrame(master_data.groupby(by = 'genre')['reviewid'].count()).to_json()
 
 average_score_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['score'].mean()).to_json()
 
 
-#create new variable, called results, to
+#create new variable, called reviews_by_genre, to set up dictionary of total reviews by year by genre
 reviews_by_genre = defaultdict(lambda: defaultdict(dict))
 for index, value in review_by_year_and_genre.itertuples():
     for i, key in enumerate(index):
@@ -52,6 +54,18 @@ for index, value in review_by_year_and_genre.itertuples():
             nested[key] = value
         else:
             nested = nested[key]
+
+#create new variable, called review_count_by_genre, to set up dictionary of total reviews by year by genre
+review_score_by_genre = defaultdict(lambda: defaultdict(dict))
+for index, value in review_score_by_year_and_genre.itertuples():
+    for i, key in enumerate(index):
+        if i == 0:
+            nested = review_score_by_genre[key]
+        elif i == len(index) - 1:
+            nested[key] = value
+        else:
+            nested = nested[key]
+
 
 @app.route("/")
 def index():
@@ -68,8 +82,12 @@ def test_time():
     return jsonify(json.loads(review_count_by_year))
 
 @app.route("/reviewsbyyearandgenre")
-def testing():
+def serve_review_count():
     return jsonify(reviews_by_genre)
+
+@app.route("/reviewscorebyyearandgenre")
+def serve_review_score():
+    return jsonify(review_score_by_genre)
 
 @app.route("/scorebyyear")
 def serve_average_review_data():
