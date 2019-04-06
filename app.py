@@ -30,8 +30,12 @@ conn = engine.connect()
 review_data = pd.read_sql("SELECT * FROM reviews", conn)
 genres_data = pd.read_sql("SELECT * FROM genres", conn)
 artists_data = pd.read_sql("SELECT * FROM artists", conn)
+content_data = pd.read_sql("SELECT * FROM content", conn)
+labels_data = pd.read_sql("SELECT * FROM labels", conn)
 
-master_data = pd.DataFrame(review_data.merge(genres_data, how = 'left'))
+master_data = pd.DataFrame(review_data.merge(genres_data, how = 'left')).merge(labels_data, how = 'left')
+
+master_data_json = master_data.to_json(orient = 'columns')
 
 review_count_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['reviewid'].count()).to_json()
 
@@ -75,7 +79,7 @@ def index():
 @app.route("/masterdata")
 def serve_master_data():
     """serve the master data to a page in JSON format"""
-    return jsonify(master_data)
+    return jsonify(json.loads(master_data_json))
 
 @app.route("/reviewsbyyear")
 def test_time():
