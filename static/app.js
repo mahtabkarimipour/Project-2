@@ -6,94 +6,6 @@ var config = {displaylogo:false,
   'ZoomIn',
   'hoverCompareCartesian']}
 
-  // d3.json("/reviewsbyyear").then(infos => {
-  //   var data = [
-  //     {
-  //       x: infos.years,
-  //       y: infos.counts,
-  //       type: 'scatter',
-  //       mode: 'lines',
-  //       line : {
-  //         width : 5,
-  //         color: '#6e76b7'
-  //       }
-  //     }
-  //   ];
-
-
-// d3.json("/reviewsbyyearandgenre").then(d => {
-//   console.log(d)
-//   console.log(d.electronic)
-//   console.log(Object.keys(d.electronic))
-//   console.log(Object.values(d.electronic))
-// });
-
-// d3.json("/reviewscorebyyearandgenre").then(d => {
-//   console.log(d)
-//   console.log(d.electronic)
-//   console.log(Object.keys(d.electronic))
-//   console.log(Object.values(d.electronic))
-// });
-
-
-//   d3.json("/reviewsbyyear").then(infos => {
-//     var data = [
-//       {
-//         x: Object.keys(infos.reviewid),
-//         y: Object.values(infos.reviewid),
-//         type: 'scatter',
-//         mode: 'lines',
-//         line : {
-//           width : 5,
-//           color: '#6e76b7'
-//         }
-//       }
-//     ];
-
-
-
-//   var layout = {
-//     title: "Review Counts By Year All Genres",
-//     font: {
-//       family : 'Arial',
-//       size :18,
-//       color: '#000000'
-//     },
-//     xaxis: {
-//       title : "Year"
-//     },
-//     yaxis: {
-//       title : "Total Reviews"
-//     }
-//   };
-//   Plotly.newPlot("reviewsbyyear", data, layout, config);
-// });
-
-// d3.json("/scorebyyear").then(infos => {
-//   var data = [
-//     {
-//       x: infos.years,
-//       y: infos.scores,
-//       type: "scatter"
-//     }
-//   ];
-//   var layout = {
-//     title: "Average Album Review Score",
-//     font: {
-//       family : 'Arial',
-//       size :18,
-//       color: '#000000'
-//     },
-//     xaxis: {
-//       title : "Year"
-//     },
-//     yaxis: {
-//       title : "Total Reviews"
-//     }
-//   };
-//   Plotly.newPlot("scorebyyear", data, layout);
-// });
-
 d3.json("/genrecount").then(infos => {
   var data = [
     {
@@ -108,13 +20,6 @@ d3.json("/genrecount").then(infos => {
   Plotly.newPlot("genrecount", data, layout);
 });
 
-
-// const players = [
-//   {genre: "electronic", count: 22, year :1999},
-
-// ];
-
-//STACKED ATTEMPT
 d3.json("/reviewsbyyearandgenre").then(infos => {
 
   var trace1 = {
@@ -184,7 +89,7 @@ d3.json("/reviewsbyyearandgenre").then(infos => {
 
   var layout = {
     autosize: false,
-    title: "Stacked Attempt",
+    title: "Album Review Count by Genre",
     font: {
       family : 'Arial',
       size :18,
@@ -281,7 +186,7 @@ d3.json("/reviewscorebyyearandgenre").then(infos => {
 
   var layout = {
     autosize: false,
-    title: "Lines Attempt",
+    title: "Average Album Score by Genre",
     font: {
       family : 'Arial',
       size :18,
@@ -300,3 +205,11 @@ d3.json("/reviewscorebyyearandgenre").then(infos => {
 
   
 });
+
+
+
+d3.json("/scatterdata").then(d => {
+  console.log(d.popularity)
+  console.log(d.score)
+
+})

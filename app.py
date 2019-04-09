@@ -37,6 +37,10 @@ master_data = pd.DataFrame(review_data.merge(genres_data, how = 'left')).merge(l
 
 master_data_json = master_data.to_json(orient = 'columns')
 
+scatter_data = pd.read_csv('Merged_Data.csv')
+
+scatter_data_json = scatter_data.to_json(orient = 'columns')
+
 review_count_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['reviewid'].count()).to_json()
 
 review_by_year_and_genre = pd.DataFrame(master_data.groupby(by = ['genre','pub_year'])['reviewid'].count())
@@ -80,6 +84,10 @@ def index():
 def serve_master_data():
     """serve the master data to a page in JSON format"""
     return jsonify(json.loads(master_data_json))
+
+@app.route("/scatterdata")
+def serve_scatter_data():
+    return jsonify(json.loads(scatter_data_json))
 
 @app.route("/reviewsbyyear")
 def test_time():
