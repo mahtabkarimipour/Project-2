@@ -215,6 +215,26 @@ d3.json("/scatterdata").then(d => {
     mode: 'markers',
     type : 'scatter'
   }
+
+  var layout = {
+    autosize: false,
+    title: "Spotify Popularity vs. Pitchfork Album Review Score",
+    font: {
+      family : 'Arial',
+      size :18,
+      color: '#000000'
+    },
+    xaxis: {
+      title : "Pitchfork Review Score",
+    },
+    yaxis: {
+      title : "Spotify Popularity",
+    },
+
+  };
+
+
+
   let data = [trace]
-  Plotly.newPlot('scatter', data)
+  Plotly.newPlot('scatter', data, layout)
 })
