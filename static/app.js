@@ -243,13 +243,13 @@ d3.json("/scatterdata").then(dataSet => {
 console.log(dataSet)
 
   let xLinearScale = d3.scaleLinear()
-  .domain([d3.min(dataSet, d => d.score) *0.95, 
-    d3.max(dataSet, d => d.score)*1.05])
+  .domain([d3.min(dataSet, d => Object.values(d.score)) *0.95, 
+    d3.max(dataSet, d => Object.values(d.score))*1.05])
   .range([0, width]);
 
   let yLinearScale = d3.scaleLinear()
-  .domain([d3.min(dataSet, d=> d.popularity) *.80, 
-    d3.max(dataSet, d => d.popularity)* 1.05])
+  .domain([d3.min(dataSet, d=> Object.values(d.popularity)) *.80, 
+    d3.max(dataSet, d => Object.values(d.popularity))* 1.05])
   .range([height, 0]);
 
   let bottomAxis = d3.axisBottom(xLinearScale);
@@ -283,8 +283,8 @@ console.log(dataSet)
 
   let circlesGroup = theCircles
   .append("circle")
-  .attr('cx', d => xLinearScale(d.score) + margin.left)
-  .attr('cy', d => yLinearScale(d.popularity))
+  .attr('cx', d => xLinearScale(Object.values(d.score)) + margin.left)
+  .attr('cy', d => yLinearScale(Object.values(d.popularity)))
   .attr('r', '15')
   .attr('fill', 'tomato')
   .attr('stroke-width', '0.7')
