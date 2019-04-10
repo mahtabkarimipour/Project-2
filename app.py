@@ -39,6 +39,8 @@ master_data_json = master_data.to_json(orient = 'columns')
 
 scatter_data = pd.read_csv('Merged_Data.csv')
 
+scatter_data = scatter_data.dropna()
+
 scatter_data_json = scatter_data.to_json(orient = 'columns')
 
 review_count_by_year = pd.DataFrame(master_data.groupby(by = 'pub_year')['reviewid'].count()).to_json()
