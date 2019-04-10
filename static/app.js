@@ -97,7 +97,7 @@ d3.json("/reviewsbyyearandgenre").then(infos => {
     },
     xaxis: {
       title : "Year",
-      rangeslider: {}
+      // rangeslider: {}
     },
     yaxis: {
       title : "Total Reviews",
@@ -194,7 +194,7 @@ d3.json("/reviewscorebyyearandgenre").then(infos => {
     },
     xaxis: {
       title : "Year",
-      rangeslider: {}
+      // rangeslider: {}
     },
     yaxis: {
       title : "Average Score",
